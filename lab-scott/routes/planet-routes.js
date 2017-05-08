@@ -1,13 +1,13 @@
 'use strict';
 
 // const Planet = require('../models/planet');
-const Universe = require('../models/universe');
+// const Universe = require('../models/universe');
 // const createError = require('http-errors');
-const planetCrtl = require('../controllers/planet-controller');
+const PlanetCtrl = require('../controllers/planet-controller');
 
 module.exports = function(router) {
   router.get('/planet/:id', (req,res) => {
-    planetCrtl.fetchItem(req.params.id)
+    PlanetCtrl.fetchItem(req.params.id)
       .then(planet => {
         // console.log(planet);
         res.json(planet);
@@ -20,17 +20,17 @@ module.exports = function(router) {
   // });
 
   router.post('/universe/:id/planet', (req,res) => {
-    Universe.findByIdAndAddPlanet(req.params.id, req.body)
+    PlanetCtrl.createP(req.params.id, req.body)
       .then(planet => res.json(planet))
       .catch(err => res.status(404).send(err.message));
 
-    // planetCrtl.createItem(req.body)
+    // PlanetCtrl.createItem(req.body)
     //   .then(planet => res.json(planet))
     //   .catch(err => res.status(400).send(err.message));
   });
 
   router.put('/planet/:id', (req,res) => {
-    planetCrtl.updateItem(req.params.id, req.body)
+    PlanetCtrl.updateItem(req.params.id, req.body)
       .then(planet => res.json(planet))
       .catch(err => res.status(404).send(err.message));
 
@@ -38,7 +38,7 @@ module.exports = function(router) {
 
   router.delete('/planet/:id', (req,res) => {
     // Planet.find({"_id" : `ObjectId("${req.params.id}")`})
-    planetCrtl.deleteItem(req.params.id)
+    PlanetCtrl.deleteItem(req.params.id)
       .then(planet => {
         console.log(planet);
         res.json(planet);

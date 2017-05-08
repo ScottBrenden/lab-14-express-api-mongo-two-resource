@@ -3,23 +3,18 @@
 // const mkdirp = require('mkdirp-promise');
 // const createError = require('http-errors');
 const Planet = require('../models/planet');
+const Universe = require('../models/universe');
 
 
 module.exports = exports = {};
 
-exports.createItem = function(planet) {
-  // if(!planet || !planet.name || !planet.universe) return Promise.reject(createError(400, 'Planet with name and universe required'));
+exports.createP = function(id, planet) {
+  Universe.findByIdAndAddPlanet(id, planet);
 
-  return new Planet(planet).save();
-
-  // return mkdirp(`${__dirname}/../db`)
-  //   .then((planet) => new Planet(planet).save())
-  //   .catch(err => err.message);
+  // return new Planet(planet).save();
 };
 
 exports.fetchItem = function(id) {
-  // if(!id) return Promise.reject(createError(400, 'id required'));
-
   return Planet.findById(id);
 };
 
